@@ -3,204 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>alicelik.xyz - Ali Çelik</title>
+    <title>alicelik.xyz</title>
     <style>
-        /*
-        Genel Stil ve Fontlar
-        */
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;900&display=swap');
-
-        :root {
-            --primary-color: #000000; /* Siyah */
-            --secondary-color: #f0f0f0; /* Açık Gri/Beyaz */
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body, html {
-            height: 100%;
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            overflow-x: hidden; /* Yatay kaydırmayı engelle */
-            display: flex; /* İçeriği ortalamak için */
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
+        body {
+            font-family: 'Georgia', serif;
+            background: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
         }
 
-        /*
-        Başlık (Domain Adı)
-        */
-        #header-title {
-            position: fixed; /* Üstte sabit kalır */
+        /* Güneş */
+        .sun {
+            position: absolute;
+            top: 50px;
+            right: 100px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #FFD700, #FFA500);
+            box-shadow: 0 0 60px #FFD700, 0 0 100px #FFA500;
+            animation: celestialOrbit 20s linear infinite, pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes celestialOrbit {
+            0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Yıldızlar */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: black;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Logo üstte */
+        .logo {
+            position: absolute;
             top: 40px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 5px;
-            opacity: 0; /* Başlangıçta gizli */
-            animation: fadeInDown 1s ease-out 0.5s forwards; /* Gecikmeli giriş animasyonu */
+            font-family: 'Georgia', serif;
+            font-size: 18px;
+            color: #000;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            z-index: 100;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Ana isim ortada */
+        .main-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
             z-index: 10;
         }
 
-        /*
-        Büyük İsim
-        */
-        #main-name {
-            font-size: 8vw; /* Ekran genişliğine göre ayarlanır */
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            line-height: 1;
-            opacity: 0;
-            /* İlk yüklemede ve hover'da hafif 3D efekti */
-            text-shadow: 
-                -1px -1px 0 rgba(0, 0, 0, 0.1),
-                1px 1px 0 rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease-in-out;
-            animation: fadeIn 1s ease-out 1s forwards; /* Gecikmeli giriş animasyonu */
-            cursor: default;
+        .main-name {
+            font-family: 'Didot', 'Georgia', serif;
+            font-size: 120px;
+            color: #000;
+            font-weight: bold;
+            letter-spacing: 8px;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+            animation: nameGlow 4s ease-in-out infinite;
         }
 
-        #main-name:hover {
-            letter-spacing: 12px;
-            transform: scale(1.02);
-            text-shadow: 
-                -2px -2px 0 rgba(0, 0, 0, 0.15),
-                2px 2px 0 rgba(255, 255, 255, 0.7);
+        @keyframes nameGlow {
+            0%, 100% { 
+                text-shadow: 4px 4px 8px rgba(0,0,0,0.4), 
+                             0 0 20px rgba(255,255,255,0.3);
+            }
+            50% { 
+                text-shadow: 4px 4px 8px rgba(0,0,0,0.4), 
+                             0 0 40px rgba(255,255,255,0.6),
+                             0 0 60px rgba(255,255,255,0.4);
+            }
         }
 
-        /*
-        Temel Animasyonlar
-        */
-
-        /* Sayfa Yüklenince Gelen Animasyonlar */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translate(-50%, -20px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-name {
+                font-size: 60px;
+                letter-spacing: 4px;
+            }
+            .logo {
+                font-size: 14px;
+            }
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Boş Dururken Nabız (Pulse) Animasyonu */
-        @keyframes subtlePulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.005); opacity: 0.98; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        body.idle #main-name {
-            animation: subtlePulse 8s ease-in-out infinite, fadeIn 1s ease-out 1s forwards;
-        }
-
-        /*
-        Kaydırma (Scroll) Animasyonu için Placeholder
-        Not: GitHub Pages'de tek sayfa olduğu için kaydırma pek olmaz.
-             Ancak eğer içerik eklersen veya telefonda açılırsa bu animasyon çalışır.
-        */
-        .content-section {
-            height: 100vh; /* Tam ekran yüksekliği */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            opacity: 0; /* Başlangıçta gizli */
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            transform: translateY(50px);
-        }
-        
-        /* Gözüken Eleman */
-        .content-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Ekstra Alan: Animasyonun Gözükmesi İçin */
-        #placeholder-content {
-            height: 150vh; /* Kaydırma çubuğunun çıkması için biraz daha uzun yaptık */
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            padding-bottom: 50px;
-            width: 100%;
-        }
-
-        #scroll-hint {
-            font-size: 0.9rem;
-            font-weight: 400;
-            opacity: 0.7;
-            animation: fadeIn 1s ease-out 2s forwards;
-        }
-
     </style>
 </head>
 <body>
+    <!-- Logo üstte -->
+    <div class="logo">alicelik.xyz</div>
 
-    <h1 id="header-title">alicelik.xyz</h1>
+    <!-- Güneş -->
+    <div class="sun"></div>
 
-    <div id="main-name-container">
-        <h2 id="main-name">Ali Çelik</h2>
+    <!-- Yıldızlar -->
+    <div class="stars">
+        <div class="star" style="top: 10%; left: 15%;"></div>
+        <div class="star" style="top: 20%; left: 45%;"></div>
+        <div class="star" style="top: 15%; left: 75%;"></div>
+        <div class="star" style="top: 40%; left: 25%;"></div>
+        <div class="star" style="top: 50%; left: 85%;"></div>
+        <div class="star" style="top: 70%; left: 35%;"></div>
+        <div class="star" style="top: 80%; left: 65%;"></div>
+        <div class="star" style="top: 30%; left: 90%;"></div>
     </div>
 
-    <div id="placeholder-content">
-        <p id="scroll-hint">Sayfayı aşağı kaydırın!</p>
+    <!-- Ana İsim -->
+    <div class="main-container">
+        <h1 class="main-name">Ali Çelik</h1>
     </div>
 
-    <section class="content-section" id="section-1">
-        <p>Burası kişisel portfolyo veya hakkımda bölümü olabilir.</p>
-    </section>
+    <!-- İnşaat Penguenleri -->
+    <div class="penguin-container">
+        <div class="penguin"></div>
+        <div class="penguin"></div>
+        <div class="penguin"></div>
+    </div>
+
+    <!-- Uçan Kuşlar -->
+    <div class="bird"></div>
+    <div class="bird"></div>
+
+    <!-- İnşaat İşaretleri -->
+    <div class="construction"></div>
+    <div class="construction"></div>
+
+    <!-- Baloncuklar -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <!-- Kalplar -->
+    <div class="heart"></div>
+    <div class="heart"></div>
+
+    <!-- Roket -->
+    <div class="rocket"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const body = document.body;
-            const mainName = document.getElementById('main-name');
-            const sections = document.querySelectorAll('.content-section');
-            let idleTimer;
+        // Rastgele yıldızlar ekle
+        const starsContainer = document.querySelector('.stars');
+        for(let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
 
-            // 1. Boş Durma (Idle) Animasyonu
-            // Kullanıcı 3 saniye boyunca fare/dokunmatik kullanmazsa animasyonu başlat
-            function startIdleTimer() {
-                clearTimeout(idleTimer);
-                body.classList.remove('idle');
-                idleTimer = setTimeout(() => {
-                    body.classList.add('idle');
-                }, 3000); // 3 saniye
+        // İsme tıklayınca özel animasyon
+        const mainName = document.querySelector('.main-name');
+        mainName.addEventListener('click', function() {
+            this.style.transform = 'scale(1.1) rotate(5deg)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            }, 300);
+        });
+
+        // Mouse hareketi ile parallax efekti
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            const sun = document.querySelector('.sun');
+            if(sun) {
+                sun.style.transform = `translate(${moveX}px, ${moveY}px)`;
             }
-
-            document.addEventListener('mousemove', startIdleTimer);
-            document.addEventListener('keypress', startIdleTimer);
-            document.addEventListener('scroll', startIdleTimer);
-            startIdleTimer(); // Sayfa yüklenir yüklenmez sayacı başlat
-
-            // 2. Kaydırma (Scroll) Animasyonu
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    } else {
-                        // Eğer istersen kaybolmasını da sağlayabiliriz:
-                        // entry.target.classList.remove('visible'); 
-                    }
-                });
-            }, {
-                threshold: 0.1 // %10'u göründüğünde tetikle
-            });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
         });
     </script>
-
 </body>
 </html>
