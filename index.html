@@ -1,94 +1,539 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Ali Çelik</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #fff;
-      overflow: hidden;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurkLoca - Forum</title>
+    
+    <style>
+        /* Google Font - 'Oswald' (Keskin bir font için) */
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Roboto:wght@400;500;700&display=swap');
 
-    header {
-      position: absolute;
-      top: 20px;
-      width: 100%;
-      text-align: center;
-      font-size: 18px;
-      color: black;
-      font-family: 'Courier New', Courier, monospace;
-      letter-spacing: 2px;
-      animation: fadeIn 2s ease-in-out;
-    }
+        /* Temel Sıfırlama */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    h1 {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 64px;
-      color: black;
-      font-family: 'Georgia', serif;
-      animation: fadeIn 3s ease-in-out;
-    }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
 
+        /* Ana Konteyner */
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+        /* HEADER (ÜST BİLGİ) & NAVİGASYON */
+        header {
+            background: #2c3e50; /* Koyu mavi/gri */
+            color: #fff;
+            padding: 15px 0;
+            border-bottom: 4px solid #3498db; /* Mavi vurgu */
+        }
 
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-30px); }
-    }
+        /* Logo (İstediğin gibi keskin 'Oswald' fontu ile) */
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem; /* Biraz büyük ve dikkat çekici */
+            font-weight: 500;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 1px; /* Harf arası boşluk */
+        }
 
-    .penguin:nth-child(1) { left: 20%; }
-    .penguin:nth-child(2) { left: 40%; }
-    .penguin:nth-child(3) { left: 60%; }
-    .penguin:nth-child(4) { left: 80%; }
-  </style>
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a, .nav-auth a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #34495e;
+        }
+
+        /* Giriş ve Kayıt Butonları */
+        .nav-auth .btn {
+            background-color: #3498db;
+            color: #fff;
+        }
+        
+        .nav-auth .btn-secondary {
+            background-color: #e74c3c;
+        }
+
+        .nav-auth .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .nav-auth .btn-secondary:hover {
+            background-color: #c0392b;
+        }
+
+        /* SAYFA İÇERİKLERİ (JavaScript ile göster/gizle) */
+        .page {
+            display: none; /* Başlangıçta tüm sayfalar gizli */
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-top: 20px;
+        }
+
+        /* Aktif sayfayı göster */
+        .page.active {
+            display: block;
+        }
+
+        /* Sayfa Başlıkları */
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 10px;
+        }
+
+        /* FORUM LİSTESİ (Ana Sayfa) */
+        .category-header {
+            background: #3498db;
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .forum-list {
+            list-style: none;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .forum-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f2f5;
+            transition: background-color 0.2s ease;
+        }
+
+        .forum-item:last-child {
+            border-bottom: none;
+        }
+
+        .forum-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .forum-icon {
+            font-size: 1.5rem;
+            color: #3498db;
+            margin-right: 15px;
+        }
+
+        .forum-info {
+            flex-grow: 1;
+        }
+
+        .forum-info a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .forum-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .forum-stats {
+            text-align: center;
+            min-width: 100px;
+            color: #555;
+        }
+
+        .forum-stats span {
+            display: block;
+            font-size: 0.9rem;
+        }
+        
+        /* Yeni Konu Butonu */
+        .btn-new-topic {
+            display: inline-block;
+            background: #2ecc71;
+            color: #fff;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+        .btn-new-topic:hover {
+            background: #27ae60;
+        }
+
+        /* FORM STİLLERİ (Giriş, Kayıt, Yeni Konu) */
+        .form-container {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background: #2980b9;
+        }
+        
+        /* FOOTER (ALT BİLGİ) */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+        }
+
+    </style>
 </head>
 <body>
-  <header>alicelik.xyz</header>
-  <h1>Ali Çelik</h1>
-  <div class="sun"></div>
-  <div class="moon"></div>
-  <div class="penguin"></div>
-  <div class="penguin"></div>
-  <div class="penguin"></div>
-  <div class="penguin"></div>
 
-  <script>
-    // Daha fazla animasyon için JavaScript ile yıldızlar ekleyelim
-    for (let i = 0; i < 50; i++) {
-      let star = document.createElement('div');
-      star.style.position = 'absolute';
-      star.style.width = '4px';
-      star.style.height = '4px';
-      star.style.background = 'black';
-      star.style.borderRadius = '50%';
-      star.style.top = Math.random() * window.innerHeight + 'px';
-      star.style.left = Math.random() * window.innerWidth + 'px';
-      star.style.animation = 'twinkle 2s infinite alternate';
-      document.body.appendChild(star);
-    }
+    <header>
+        <nav>
+            <a href="#" class="logo" id="logo-link">ForumLoca</a>
+            
+            <div class="nav-links">
+                <a href="#" id="nav-home">Ana Sayfa</a>
+                <a href="#">Kategoriler (Test)</a>
+                <a href="#">Hakkımızda (Test)</a>
+            </div>
+            
+            <div class="nav-auth">
+                <a href="#" class="btn" id="nav-login">Giriş Yap</a>
+                <a href="#" class="btn btn-secondary" id="nav-register">Kayıt Ol</a>
+            </div>
+        </nav>
+    </header>
 
-    const style = document.createElement('style');
-    style.innerHTML = `
-      @keyframes twinkle {
-        from { opacity: 0.2; }
-        to { opacity: 1; }
-      }
-    `;
-    document.head.appendChild(style);
-  </script>
+    <main class="container">
+
+        <div id="page-home" class="page active">
+            <h1>Genel Forumlar</h1>
+            
+            <a href="#" id="btn-open-new-topic" class="btn-new-topic">Yeni Konu Aç</a>
+            
+            <div class="category">
+                <div class="category-header">
+                    <span>Genel Tartışma</span>
+                    <span>Konular / Mesajlar</span>
+                </div>
+                <ul class="forum-list">
+                    <li class="forum-item">
+                        <div class="forum-icon">💬</div>
+                        <div class="forum-info">
+                            <a href="#">Hoş Geldiniz! Forum Kuralları</a>
+                            <p>Lütfen okuyun! Forumu kullanmadan önce kuralları bilmek önemlidir.</p>
+                        </div>
+                        <div class="forum-stats">
+                            <span>1 Konu</span>
+                            <span>1 Mesaj</span>
+                        </div>
+                    </li>
+                    <li class="forum-item">
+                        <div class="forum-icon">👋</div>
+                        <div class="forum-info">
+                            <a href="#">Tanışma Alanı</a>
+                            <p>Yeni üyelerimiz burada kendilerini tanıtabilirler.</p>
+                        </div>
+                        <div class="forum-stats">
+                            <span>152 Konu</span>
+                            <span>1.2k Mesaj</span>
+                        </div>
+                    </li>
+                    <li class="forum-item">
+                        <div class="forum-icon">💡</div>
+                        <div class="forum-info">
+                            <a href="#">Öneri ve Şikayet</a>
+                            <p>Forum hakkındaki görüşlerinizi bizimle paylaşın.</p>
+                        </div>
+                        <div class="forum-stats">
+                            <span>42 Konu</span>
+                            <span>305 Mesaj</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+             <div class="category" style="margin-top: 20px;">
+                <div class="category-header">
+                    <span>Teknik Destek</span>
+                    <span>Konular / Mesajlar</span>
+                </div>
+                <ul class="forum-list">
+                    <li class="forum-item">
+                        <div class="forum-icon">💻</div>
+                        <div class="forum-info">
+                            <a href="#">Donanım Sorunları</a>
+                            <p>Bilgisayar donanımları ile ilgili yaşadığınız sorunlar.</p>
+                        </div>
+                        <div class="forum-stats">
+                            <span>87 Konu</span>
+                            <span>942 Mesaj</span>
+                        </div>
+                    </li>
+                    <li class="forum-item">
+                        <div class="forum-icon">📱</div>
+                        <div class="forum-info">
+                            <a href="#">Mobil Cihazlar</a>
+                            <p>Akıllı telefonlar, tabletler ve diğer mobil cihazlar.</p>
+                        </div>
+                        <div class="forum-stats">
+                            <span>210 Konu</span>
+                            <span>3.4k Mesaj</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+
+        <div id="page-login" class="page">
+            <div class="form-container">
+                <h2>Giriş Yap</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-username">Kullanıcı Adı</label>
+                        <input type="text" id="login-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Şifre</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Giriş Yap</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="page-register" class="page">
+            <div class="form-container">
+                <h2>TurkLoca'ya Kayıt Ol</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="reg-username">Kullanıcı Adı</label>
+                        <input type="text" id="reg-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">E-posta Adresi</label>
+                        <input type="email" id="reg-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Şifre</label>
+                        <input type="password" id="reg-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password-confirm">Şifre Tekrar</label>
+                        <input type="password" id="reg-password-confirm" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Hesap Oluştur</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="page-new-post" class="page">
+            <div class="form-container" style="max-width: 800px;">
+                <h2>Yeni Konu Oluştur</h2>
+                <form id="new-post-form">
+                    <div class="form-group">
+                        <label for="post-title">Konu Başlığı</label>
+                        <input type="text" id="post-title" placeholder="Konunuza açıklayıcı bir başlık girin..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="post-category">Kategori</label>
+                        <select id="post-category" class="form-group" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem;">
+                            <option value="genel">Genel Tartışma</option>
+                            <option value="tanisma">Tanışma Alanı</option>
+                            <option value="donanim">Donanım Sorunları</option>
+                            <option value="mobil">Mobil Cihazlar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="post-content">Mesajınız</label>
+                        <textarea id="post-content" placeholder="Mesajınızı buraya yazın..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Konuyu Gönder</button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 TurkLoca. Tüm hakları saklıdır.</p>
+        <p>Bu site, bir prototip olarak Alicim'in isteği üzerine oluşturulmuştur.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const pages = document.querySelectorAll('.page');
+            const navHome = document.getElementById('nav-home');
+            const navLogin = document.getElementById('nav-login');
+            const navRegister = document.getElementById('nav-register');
+            const logoLink = document.getElementById('logo-link');
+            const btnOpenNewTopic = document.getElementById('btn-open-new-topic');
+
+            // Formlar
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const newPostForm = document.getElementById('new-post-form');
+
+            // Sayfa gösterme fonksiyonu
+            function showPage(pageId) {
+                // Tüm sayfaları gizle
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // İstenen sayfayı göster
+                const activePage = document.getElementById(pageId);
+                if (activePage) {
+                    activePage.classList.add('active');
+                }
+            }
+
+            // --- Navigasyon Linkleri ---
+
+            // Ana Sayfa
+            navHome.addEventListener('click', (e) => {
+                e.preventDefault(); // Linkin varsayılan davranışını engelle
+                showPage('page-home');
+            });
+            
+            // Logo (Ana Sayfa)
+            logoLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPage('page-home');
+            });
+
+            // Giriş Yap Sayfası
+            navLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPage('page-login');
+            });
+
+            // Kayıt Ol Sayfası
+            navRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPage('page-register');
+            });
+
+            // Yeni Konu Aç Sayfası
+            btnOpenNewTopic.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Normalde burada giriş yapılıp yapılmadığı kontrol edilir
+                // Biz simülasyon yaptığımız için direkt sayfayı açıyoruz
+                showPage('page-new-post');
+            });
+
+
+            // --- Form Gönderme Simülasyonları ---
+
+            // Giriş Formu
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Formun gerçekten gönderilmesini engelle
+                alert('Giriş yapıldı (Simülasyon)! \n\nVeritabanı olmadığı için ana sayfaya yönlendiriliyorsunuz.');
+                showPage('page-home');
+            });
+
+            // Kayıt Formu
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Kayıt başarıyla oluşturuldu (Simülasyon)! \n\nŞimdi ana sayfaya yönlendiriliyorsunuz.');
+                showPage('page-home');
+            });
+
+            // Yeni Konu Formu
+            newPostForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Konunuz başarıyla oluşturuldu (Simülasyon)! \n\nVeritabanı olmadığı için ana sayfaya yönlendiriliyorsunuz.');
+                showPage('page-home');
+            });
+
+            // Sayfa ilk yüklendiğinde ana sayfayı göster
+            showPage('page-home');
+
+        });
+    </script>
+
 </body>
 </html>
