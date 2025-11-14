@@ -1,419 +1,94 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TurkLoca Forum</title>
-    <style>
-        /* CSS Kodları - Profesyonel Tasarım */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        header {
-            background-color: #007bff;
-            padding: 20px;
-            text-align: center;
-            color: white;
-        }
-        #logo {
-            font-family: 'Impact', sans-serif; /* Keskin font için Impact kullanıyoruz */
-            font-size: 48px;
-            color: white;
-            margin: 0;
-        }
-        nav {
-            background-color: #343a40;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
-        }
-        .section {
-            margin-bottom: 40px;
-        }
-        h2 {
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"], input[type="password"], textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .thread {
-            border-bottom: 1px solid #eee;
-            padding: 15px 0;
-        }
-        .post {
-            background-color: #f9f9f9;
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: 4px;
-        }
-        #user-status {
-            color: white;
-            float: right;
-            margin-top: -40px;
-            margin-right: 20px;
-        }
-        .hidden {
-            display: none;
-        }
-        /* Modal Stilleri */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-            padding-top: 60px;
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 8px;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Ali Çelik</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #fff;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    header {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      color: black;
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: 2px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    h1 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 64px;
+      color: black;
+      font-family: 'Georgia', serif;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    .penguin:nth-child(1) { left: 20%; }
+    .penguin:nth-child(2) { left: 40%; }
+    .penguin:nth-child(3) { left: 60%; }
+    .penguin:nth-child(4) { left: 80%; }
+  </style>
 </head>
 <body>
+  <header>alicelik.xyz</header>
+  <h1>Ali Çelik</h1>
+  <div class="sun"></div>
+  <div class="moon"></div>
+  <div class="penguin"></div>
+  <div class="penguin"></div>
+  <div class="penguin"></div>
+  <div class="penguin"></div>
 
-    <header>
-        <h1 id="logo">ForumLoca</h1>
-    </header>
+  <script>
+    // Daha fazla animasyon için JavaScript ile yıldızlar ekleyelim
+    for (let i = 0; i < 50; i++) {
+      let star = document.createElement('div');
+      star.style.position = 'absolute';
+      star.style.width = '4px';
+      star.style.height = '4px';
+      star.style.background = 'black';
+      star.style.borderRadius = '50%';
+      star.style.top = Math.random() * window.innerHeight + 'px';
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      star.style.animation = 'twinkle 2s infinite alternate';
+      document.body.appendChild(star);
+    }
 
-    <nav>
-        <a href="#" id="home-link">Ana Sayfa</a>
-        <a href="#" id="register-link">Kayıt Ol</a>
-        <a href="#" id="login-link">Giriş Yap</a>
-        <a href="#" id="logout-link" class="hidden">Çıkış Yap</a>
-        <span id="user-status" class="hidden"></span>
-    </nav>
-
-    <div class="container">
-        <div class="section" id="categories">
-            <h2>Kategoriler</h2>
-            <ul>
-                <li><a href="#" onclick="showThreads('Genel Tartışma')">Genel Tartışma</a></li>
-                <li><a href="#" onclick="showThreads('Teknoloji')">Teknoloji</a></li>
-                <li><a href="#" onclick="showThreads('Oyunlar')">Oyunlar</a></li>
-            </ul>
-        </div>
-
-        <div class="section" id="threads" class="hidden">
-            <h2 id="category-title">Konular</h2>
-            <div id="thread-list"></div>
-            <button id="new-thread-btn" class="hidden">Yeni Konu Aç</button>
-        </div>
-
-        <div class="section" id="thread-detail" class="hidden">
-            <h2 id="thread-title"></h2>
-            <div id="post-list"></div>
-            <form id="new-post-form" class="hidden">
-                <h3>Yeni Mesaj Gönder</h3>
-                <div class="form-group">
-                    <label for="post-content">Mesaj:</label>
-                    <textarea id="post-content" rows="5" required></textarea>
-                </div>
-                <button type="submit">Gönder</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Kayıt Modal -->
-    <div id="register-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="register-close">&times;</span>
-            <h2>Kayıt Ol</h2>
-            <form id="register-form">
-                <div class="form-group">
-                    <label for="reg-username">Kullanıcı Adı:</label>
-                    <input type="text" id="reg-username" required>
-                </div>
-                <div class="form-group">
-                    <label for="reg-password">Şifre:</label>
-                    <input type="password" id="reg-password" required>
-                </div>
-                <button type="submit">Kayıt Ol</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Giriş Modal -->
-    <div id="login-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="login-close">&times;</span>
-            <h2>Giriş Yap</h2>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="login-username">Kullanıcı Adı:</label>
-                    <input type="text" id="login-username" required>
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Şifre:</label>
-                    <input type="password" id="login-password" required>
-                </div>
-                <button type="submit">Giriş Yap</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Yeni Konu Modal -->
-    <div id="new-thread-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="new-thread-close">&times;</span>
-            <h2>Yeni Konu Aç</h2>
-            <form id="new-thread-form">
-                <div class="form-group">
-                    <label for="thread-title-input">Başlık:</label>
-                    <input type="text" id="thread-title-input" required>
-                </div>
-                <div class="form-group">
-                    <label for="thread-content">İçerik:</label>
-                    <textarea id="thread-content" rows="5" required></textarea>
-                </div>
-                <button type="submit">Oluştur</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        // JavaScript Kodları - Forum İşlevselliği (Database yok, yerel depolama simülasyonu ile)
-        let currentUser = null;
-        let currentCategory = '';
-        let currentThread = null;
-
-        // Sahte veri (test için)
-        let data = {
-            users: {}, // {username: password}
-            categories: {
-                'Genel Tartışma': [],
-                'Teknoloji': [],
-                'Oyunlar': []
-            }
-        };
-
-        // Yerel depolama simülasyonu (gerçek localStorage kullanabiliriz ama test için obje)
-        function saveData() {
-            // Gerçekte localStorage.setItem('forumData', JSON.stringify(data));
-            console.log('Veri kaydedildi (simüle)');
-        }
-
-        function loadData() {
-            // Gerçekte data = JSON.parse(localStorage.getItem('forumData')) || data;
-            console.log('Veri yüklendi (simüle)');
-        }
-
-        loadData();
-
-        // Modal yönetimi
-        const registerModal = document.getElementById('register-modal');
-        const loginModal = document.getElementById('login-modal');
-        const newThreadModal = document.getElementById('new-thread-modal');
-
-        document.getElementById('register-link').onclick = () => registerModal.style.display = 'block';
-        document.getElementById('login-link').onclick = () => loginModal.style.display = 'block';
-        document.getElementById('register-close').onclick = () => registerModal.style.display = 'none';
-        document.getElementById('login-close').onclick = () => loginModal.style.display = 'none';
-        document.getElementById('new-thread-close').onclick = () => newThreadModal.style.display = 'none';
-
-        window.onclick = (event) => {
-            if (event.target == registerModal) registerModal.style.display = 'none';
-            if (event.target == loginModal) loginModal.style.display = 'none';
-            if (event.target == newThreadModal) newThreadModal.style.display = 'none';
-        };
-
-        // Kayıt formu
-        document.getElementById('register-form').onsubmit = (e) => {
-            e.preventDefault();
-            const username = document.getElementById('reg-username').value;
-            const password = document.getElementById('reg-password').value;
-            if (data.users[username]) {
-                alert('Kullanıcı adı zaten alınmış!');
-            } else {
-                data.users[username] = password;
-                saveData();
-                alert('Kayıt başarılı! Şimdi giriş yapabilirsiniz.');
-                registerModal.style.display = 'none';
-            }
-        };
-
-        // Giriş formu
-        document.getElementById('login-form').onsubmit = (e) => {
-            e.preventDefault();
-            const username = document.getElementById('login-username').value;
-            const password = document.getElementById('login-password').value;
-            if (data.users[username] && data.users[username] === password) {
-                currentUser = username;
-                updateUI();
-                alert('Giriş başarılı!');
-                loginModal.style.display = 'none';
-            } else {
-                alert('Yanlış kullanıcı adı veya şifre!');
-            }
-        };
-
-        // Çıkış
-        document.getElementById('logout-link').onclick = () => {
-            currentUser = null;
-            updateUI();
-        };
-
-        // UI Güncelleme
-        function updateUI() {
-            if (currentUser) {
-                document.getElementById('register-link').classList.add('hidden');
-                document.getElementById('login-link').classList.add('hidden');
-                document.getElementById('logout-link').classList.remove('hidden');
-                document.getElementById('new-thread-btn').classList.remove('hidden');
-                document.getElementById('new-post-form').classList.remove('hidden');
-                document.getElementById('user-status').textContent = `Hoş geldin, ${currentUser}`;
-                document.getElementById('user-status').classList.remove('hidden');
-            } else {
-                document.getElementById('register-link').classList.remove('hidden');
-                document.getElementById('login-link').classList.remove('hidden');
-                document.getElementById('logout-link').classList.add('hidden');
-                document.getElementById('new-thread-btn').classList.add('hidden');
-                document.getElementById('new-post-form').classList.add('hidden');
-                document.getElementById('user-status').classList.add('hidden');
-            }
-        }
-
-        // Kategoriye göre konuları göster
-        function showThreads(category) {
-            if (!currentUser) {
-                alert('Konuları görmek için giriş yapmalısınız!');
-                return;
-            }
-            currentCategory = category;
-            document.getElementById('category-title').textContent = category + ' Konuları';
-            document.getElementById('categories').classList.add('hidden');
-            document.getElementById('threads').classList.remove('hidden');
-            const threadList = document.getElementById('thread-list');
-            threadList.innerHTML = '';
-            data.categories[category].forEach((thread, index) => {
-                const div = document.createElement('div');
-                div.classList.add('thread');
-                div.innerHTML = `<h3><a href="#" onclick="showThreadDetail('${category}', ${index})">${thread.title}</a></h3><p>Başlatan: ${thread.author}</p>`;
-                threadList.appendChild(div);
-            });
-        }
-
-        // Yeni konu butonu
-        document.getElementById('new-thread-btn').onclick = () => {
-            if (!currentUser) return;
-            newThreadModal.style.display = 'block';
-        };
-
-        // Yeni konu formu
-        document.getElementById('new-thread-form').onsubmit = (e) => {
-            e.preventDefault();
-            const title = document.getElementById('thread-title-input').value;
-            const content = document.getElementById('thread-content').value;
-            data.categories[currentCategory].push({
-                title: title,
-                author: currentUser,
-                posts: [{author: currentUser, content: content}]
-            });
-            saveData();
-            newThreadModal.style.display = 'none';
-            showThreads(currentCategory);
-        };
-
-        // Konu detayı göster
-        function showThreadDetail(category, index) {
-            currentThread = data.categories[category][index];
-            document.getElementById('thread-title').textContent = currentThread.title;
-            document.getElementById('threads').classList.add('hidden');
-            document.getElementById('thread-detail').classList.remove('hidden');
-            const postList = document.getElementById('post-list');
-            postList.innerHTML = '';
-            currentThread.posts.forEach(post => {
-                const div = document.createElement('div');
-                div.classList.add('post');
-                div.innerHTML = `<strong>${post.author}:</strong> <p>${post.content}</p>`;
-                postList.appendChild(div);
-            });
-        }
-
-        // Yeni post formu
-        document.getElementById('new-post-form').onsubmit = (e) => {
-            e.preventDefault();
-            if (!currentUser) return;
-            const content = document.getElementById('post-content').value;
-            currentThread.posts.push({author: currentUser, content: content});
-            saveData();
-            showThreadDetail(currentCategory, data.categories[currentCategory].indexOf(currentThread));
-        };
-
-        // Ana sayfa linki
-        document.getElementById('home-link').onclick = () => {
-            document.getElementById('threads').classList.add('hidden');
-            document.getElementById('thread-detail').classList.add('hidden');
-            document.getElementById('categories').classList.remove('hidden');
-        };
-
-        updateUI();
-    </script>
-
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes twinkle {
+        from { opacity: 0.2; }
+        to { opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>
